@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Espace Coaching — Xewlu</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #C8922A; --gold-light: #E8B94A; --gold-pale: #F5E6C8;
+  --earth: #6B4226; --earth-dark: #3D2010; --cream: #FAF6EF;
+  --warm-white: #FFFDF9; --text: #2A1A0A; --text-light: #7A5C3A;
+  --green: #4A7C59; --green-light: #EBF4EE; --red: #C0392B;
+  --red-light: #FDECEA; --border: #E8D5B0;
+  --coach: #2C3E6B; --coach-light: #EEF1F8; --coach-accent: #5B7FD4;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--text); min-height:100vh; }
+
+/* ===== ACCUEIL ===== */
+#accueil {
+  min-height:100vh;
+  background: linear-gradient(160deg, var(--earth-dark) 0%, #1a0a00 60%, #2A1A0A 100%);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:40px 20px; position:relative; overflow:hidden;
+}
+#accueil::before {
+  content:'🌾'; position:absolute; font-size:300px; opacity:0.04;
+  top:50%; left:50%; transform:translate(-50%,-50%); pointer-events:none;
+}
+.accueil-logo {
+  font-family:'Playfair Display',serif; color:var(--cream);
+  font-size:42px; text-align:center; margin-bottom:12px; line-height:1.2;
+}
+.accueil-logo em { color:var(--gold-light); font-style:italic; }
+.accueil-sub {
+  color:rgba(250,246,239,0.55); font-size:16px; text-align:center;
+  margin-bottom:64px; letter-spacing:0.03em;
+}
+.profile-cards {
+  display:flex; gap:28px; flex-wrap:wrap; justify-content:center; width:100%; max-width:760px;
+}
+.profile-card {
+  flex:1; min-width:280px; max-width:340px;
+  border-radius:24px; padding:44px 36px; cursor:pointer;
+  transition:transform 0.25s, box-shadow 0.25s; position:relative; overflow:hidden;
+}
+.profile-card:hover { transform:translateY(-6px); box-shadow:0 20px 60px rgba(0,0,0,0.4); }
+.profile-card.coach-card {
+  background:linear-gradient(145deg, var(--coach) 0%, #1a2545 100%);
+  border:1px solid rgba(91,127,212,0.3);
+}
+.profile-card.entrepreneuse-card {
+  background:linear-gradient(145deg, var(--earth) 0%, #3D2010 100%);
+  border:1px solid rgba(200,146,42,0.3);
+}
+.profile-card-icon { font-size:52px; margin-bottom:20px; display:block; }
+.profile-card h2 {
+  font-family:'Playfair Display',serif; font-size:26px; margin-bottom:10px; color:white;
+}
+.profile-card p { font-size:14px; line-height:1.7; color:rgba(255,255,255,0.6); margin-bottom:28px; }
+.profile-card-btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:12px 24px; border-radius:24px; font-size:14px; font-weight:500;
+  border:none; cursor:pointer; font-family:'DM Sans',sans-serif; transition:all 0.2s;
+}
+.coach-card .profile-card-btn { background:var(--coach-accent); color:white; }
+.coach-card .profile-card-btn:hover { background:#7B9FE4; }
+.entrepreneuse-card .profile-card-btn { background:var(--gold); color:var(--earth-dark); }
+.entrepreneuse-card .profile-card-btn:hover { background:var(--gold-light); }
+.profile-card::after {
+  content:''; position:absolute; width:200px; height:200px; border-radius:50%;
+  top:-60px; right:-60px; opacity:0.07;
+}
+.coach-card::after { background:var(--coach-accent); }
+.entrepreneuse-card::after { background:var(--gold); }
+
+/* ===== LAYOUT GÉNÉRAL ===== */
+.app { display:none; flex-direction:column; min-height:100vh; }
+.app.visible { display:flex; }
+
+/* ===== HEADER ===== */
+header {
+  height:68px; display:flex; align-items:center; justify-content:space-between;
+  padding:0 36px; position:sticky; top:0; z-index:100; border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.header-coach { background:var(--coach); border-bottom-color:rgba(91,127,212,0.3); }
+.header-entrepreneuse { background:var(--earth-dark); border-bottom-color:rgba(200,146,42,0.3); border-bottom-width:2px; }
+
+.header-left { display:flex; align-items:center; gap:12px; }
+.header-icon {
+  width:36px; height:36px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; font-size:16px;
+}
+.header-coach .header-icon { background:var(--coach-accent); }
+.header-entrepreneuse .header-icon { background:var(--gold); }
+
+.header-title { font-family:'Playfair Display',serif; color:white; font-size:18px; }
+.header-title span { opacity:0.55; font-style:italic; font-size:15px; margin-left:8px; }
+
+nav { display:flex; gap:4px; }
+.nav-btn {
+  background:none; border:1px solid transparent; color:rgba(255,255,255,0.5);
+  padding:7px 16px; border-radius:18px; cursor:pointer;
+  font-family:'DM Sans',sans-serif; font-size:13px; font-weight:400;
+  transition:all 0.2s; white-space:nowrap;
+}
+.nav-btn:hover { color:white; border-color:rgba(255,255,255,0.2); }
+.nav-btn.active-coach { background:var(--coach-accent); color:white; border-color:var(--coach-accent); }
+.nav-btn.active-ent { background:var(--gold); color:var(--earth-dark); border-color:var(--gold); font-weight:500; }
+
+.back-btn {
+  background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15);
+  color:rgba(255,255,255,0.6); padding:6px 14px; border-radius:16px;
+  cursor:pointer; font-family:'DM Sans',sans-serif; font-size:12px;
+  transition:all 0.2s;
+}
+.back-btn:hover { background:rgba(255,255,255,0.15); color:white; }
+
+/* ===== SECTIONS ===== */
+.section { display:none; padding:44px 40px; max-width:1080px; margin:0 auto; width:100%; }
+.section.active { display:block; animation:fadeUp 0.3s ease; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+/* ===== COMPOSANTS COMMUNS ===== */
+.section-header { margin-bottom:32px; }
+.section-header h2 { font-family:'Playfair Display',serif; font-size:30px; color:var(--earth-dark); margin-bottom:6px; }
+.section-header p { color:var(--text-light); font-size:15px; }
+
+.tag {
+  display:inline-block; padding:3px 12px; border-radius:12px;
+  font-size:11px; font-weight:500; margin-bottom:10px;
+  letter-spacing:0.05em; text-transform:uppercase;
+}
+.tag-coach { background:var(--coach-light); color:var(--coach); }
+.tag-ent { background:var(--gold-pale); color:var(--earth); }
+
+.card {
+  background:var(--warm-white); border:1px solid var(--border);
+  border-radius:16px; padding:28px; transition:box-shadow 0.2s;
+}
+.card:hover { box-shadow:0 4px 24px rgba(107,66,38,0.08); }
+.card h3 { font-family:'Playfair Display',serif; font-size:18px; color:var(--earth-dark); margin-bottom:8px; }
+.card p { color:var(--text-light); font-size:14px; line-height:1.6; }
+
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.divider { height:1px; background:var(--border); margin:24px 0; }
+
+.btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:10px 22px; border-radius:24px; font-size:14px; font-weight:500;
+  cursor:pointer; border:none; font-family:'DM Sans',sans-serif; transition:all 0.2s;
+}
+.btn-gold { background:var(--gold); color:var(--earth-dark); }
+.btn-gold:hover { background:var(--gold-light); }
+.btn-coach { background:var(--coach-accent); color:white; }
+.btn-coach:hover { background:#7B9FE4; }
+.btn-outline-coach { background:none; border:1.5px solid var(--coach-accent); color:var(--coach-accent); }
+.btn-outline-coach:hover { background:var(--coach-light); }
+
+.field { margin-bottom:18px; }
+.field label { display:block; font-weight:500; font-size:13px; color:var(--earth); margin-bottom:7px; }
+.field input, .field textarea, .field select {
+  width:100%; padding:11px 15px; border:1.5px solid var(--border);
+  border-radius:10px; font-family:'DM Sans',sans-serif; font-size:14px;
+  color:var(--text); background:var(--cream); transition:border-color 0.2s; resize:vertical;
+}
+.field input:focus, .field textarea:focus, .field select:focus { outline:none; border-color:var(--gold); }
+.field textarea { min-height:88px; }
+.field-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+
+.score-options { display:flex; gap:8px; flex-wrap:wrap; margin-top:6px; }
+.score-btn {
+  width:40px; height:40px; border-radius:50%; border:1.5px solid var(--border);
+  background:var(--cream); cursor:pointer; font-size:13px; font-weight:500;
+  transition:all 0.15s; font-family:'DM Sans',sans-serif;
+}
+.score-btn.sel-coach { background:var(--coach-accent); border-color:var(--coach-accent); color:white; }
+.score-btn.sel-ent { background:var(--gold); border-color:var(--gold); color:var(--earth-dark); }
+.score-btn:hover:not(.sel-coach):not(.sel-ent) { border-color:var(--gold); color:var(--gold); }
+
+/* ===== AUDIT BLOCKS ===== */
+.audit-block { background:var(--warm-white); border:1px solid var(--border); border-radius:16px; margin-bottom:20px; overflow:hidden; }
+.audit-block-header {
+  background:var(--coach); color:white; padding:18px 26px;
+  display:flex; align-items:center; gap:14px; cursor:pointer; user-select:none;
+}
+.audit-block-header h3 { font-family:'Playfair Display',serif; font-size:17px; flex:1; }
+.toggle { font-size:18px; transition:transform 0.3s; }
+.audit-block.open .toggle { transform:rotate(180deg); }
+.audit-block-body { padding:26px; display:none; }
+.audit-block.open .audit-block-body { display:block; }
+
+/* ===== FEUILLE DE ROUTE ===== */
+.roadmap-phase { background:var(--warm-white); border:1px solid var(--border); border-radius:16px; margin-bottom:20px; overflow:hidden; }
+.phase-header { display:flex; align-items:center; gap:16px; padding:22px 26px; border-bottom:1px solid var(--border); }
+.phase-num {
+  width:46px; height:46px; border-radius:12px; background:var(--earth-dark);
+  color:var(--gold); display:flex; align-items:center; justify-content:center;
+  font-family:'Playfair Display',serif; font-size:20px; font-weight:700; flex-shrink:0;
+}
+.phase-info { flex:1; }
+.phase-info h3 { font-family:'Playfair Display',serif; font-size:18px; color:var(--earth-dark); }
+.phase-info span { color:var(--text-light); font-size:12px; }
+.phase-status { padding:5px 14px; border-radius:20px; font-size:12px; font-weight:500; }
+.status-todo { background:var(--red-light); color:var(--red); }
+.status-progress { background:var(--gold-pale); color:var(--earth); }
+.status-done { background:var(--green-light); color:var(--green); }
+.phase-actions { padding:18px 26px; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.action-item {
+  display:flex; align-items:flex-start; gap:10px; padding:12px;
+  background:var(--cream); border-radius:10px; border:1px solid var(--border);
+}
+.action-check {
+  width:22px; height:22px; border-radius:50%; border:2px solid var(--border);
+  flex-shrink:0; cursor:pointer; transition:all 0.2s; margin-top:1px;
+  display:flex; align-items:center; justify-content:center; font-size:11px;
+}
+.action-check.done { background:var(--green); border-color:var(--green); color:white; }
+.action-text { font-size:13px; color:var(--text); line-height:1.5; }
+
+/* ===== NOTES ===== */
+.notes-area { display:grid; grid-template-columns:260px 1fr; gap:20px; min-height:560px; }
+.notes-sidebar { background:var(--earth-dark); border-radius:16px; padding:22px; display:flex; flex-direction:column; gap:8px; }
+.notes-sidebar.coach-sidebar { background:var(--coach); }
+.notes-sidebar h3 { font-family:'Playfair Display',serif; color:white; font-size:15px; margin-bottom:10px; padding-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.15); }
+.note-item { background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.12); border-radius:10px; padding:11px; cursor:pointer; transition:all 0.2s; }
+.note-item:hover, .note-item.active-note { background:rgba(255,255,255,0.2); border-color:rgba(255,255,255,0.3); }
+.note-item-title { color:white; font-size:13px; font-weight:500; margin-bottom:3px; }
+.note-item-date { color:rgba(255,255,255,0.45); font-size:11px; }
+.add-note-btn { background:var(--gold); color:var(--earth-dark); border:none; border-radius:10px; padding:9px; cursor:pointer; font-size:13px; font-weight:500; font-family:'DM Sans',sans-serif; transition:all 0.2s; margin-top:6px; text-align:center; }
+.add-note-btn:hover { background:var(--gold-light); }
+.note-editor { background:var(--warm-white); border:1px solid var(--border); border-radius:16px; padding:28px; display:flex; flex-direction:column; }
+.note-title-input { font-family:'Playfair Display',serif; font-size:24px; border:none; background:none; color:var(--earth-dark); width:100%; margin-bottom:14px; outline:none; border-bottom:2px solid var(--border); padding-bottom:10px; }
+.note-title-input:focus { border-bottom-color:var(--gold); }
+.note-body-input { flex:1; border:none; background:none; color:var(--text); font-family:'DM Sans',sans-serif; font-size:14px; line-height:1.8; resize:none; outline:none; min-height:380px; }
+
+/* ===== QUESTIONNAIRE ===== */
+.quest-block { background:var(--warm-white); border:1px solid var(--border); border-radius:16px; padding:28px; margin-bottom:20px; }
+.quest-number { width:34px; height:34px; background:var(--gold); color:var(--earth-dark); border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; margin-bottom:12px; }
+.quest-block h4 { font-family:'Playfair Display',serif; font-size:19px; color:var(--earth-dark); margin-bottom:5px; }
+.quest-block .hint { color:var(--text-light); font-size:13px; margin-bottom:14px; font-style:italic; }
+.quest-block textarea { width:100%; padding:13px 16px; border:1.5px solid var(--border); border-radius:10px; font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); background:var(--cream); min-height:100px; resize:vertical; transition:border-color 0.2s; }
+.quest-block textarea:focus { outline:none; border-color:var(--gold); }
+.scale-row { display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap; }
+.scale-label { font-size:12px; color:var(--text-light); }
+.scale-btn { width:42px; height:42px; border-radius:10px; border:1.5px solid var(--border); background:var(--cream); cursor:pointer; font-size:13px; font-weight:500; transition:all 0.15s; font-family:'DM Sans',sans-serif; }
+.scale-btn.sel-ent { background:var(--gold); border-color:var(--gold); color:var(--earth-dark); }
+
+/* ===== SECTION BLOC TITLE ===== */
+.bloc-title { font-family:'Playfair Display',serif; font-size:21px; color:var(--earth-dark); margin-bottom:18px; display:flex; align-items:center; gap:12px; }
+.bloc-letter { background:var(--earth-dark); color:var(--gold); width:34px; height:34px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+
+/* ===== WELCOME BANDS ===== */
+.welcome-band { border-radius:18px; padding:40px 44px; margin-bottom:32px; position:relative; overflow:hidden; }
+.welcome-band-coach { background:linear-gradient(135deg, var(--coach) 0%, #1a2545 100%); }
+.welcome-band-ent { background:linear-gradient(135deg, var(--earth-dark) 0%, var(--earth) 100%); }
+.welcome-band::before { content:''; position:absolute; right:40px; top:50%; transform:translateY(-50%); font-size:80px; opacity:0.12; }
+.welcome-band-ent::before { content:'🌾'; }
+.welcome-band-coach::before { content:'📊'; }
+.welcome-band h1 { font-family:'Playfair Display',serif; color:white; font-size:32px; margin-bottom:10px; line-height:1.2; }
+.welcome-band h1 em { color:var(--gold-light); font-style:italic; }
+.welcome-band p { color:rgba(255,255,255,0.6); font-size:15px; max-width:480px; line-height:1.6; }
+.progress-strip { display:flex; gap:10px; margin-top:22px; flex-wrap:wrap; }
+.progress-chip { background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.8); padding:5px 14px; border-radius:18px; font-size:12px; display:flex; align-items:center; gap:6px; }
+
+/* ===== SAVE NOTIF ===== */
+.save-bar { margin-top:32px; display:flex; justify-content:flex-end; gap:10px; }
+
+@media(max-width:800px) {
+  .grid-2,.grid-3,.field-row,.phase-actions,.notes-area { grid-template-columns:1fr; }
+  .profile-cards { flex-direction:column; align-items:center; }
+  .section { padding:28px 16px; }
+  header { padding:0 16px; }
+  nav { gap:2px; }
+  .nav-btn { padding:6px 10px; font-size:12px; }
+  .welcome-band { padding:28px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== PAGE ACCUEIL ===== -->
+<div id="accueil">
+  <div class="accueil-logo">Coaching <em>Xewlu</em></div>
+  <div class="accueil-sub">Espace de travail partagé — Dakar, Sénégal</div>
+
+  <div class="profile-cards">
+
+    <div class="profile-card coach-card" onclick="enterSpace('coach')">
+      <span class="profile-card-icon">🧭</span>
+      <h2>Espace Coach</h2>
+      <p>Audit, diagnostic, feuille de route, notes de séances et pilotage du parcours de coaching.</p>
+      <button class="profile-card-btn">Accéder →</button>
+    </div>
+
+    <div class="profile-card entrepreneuse-card" onclick="enterSpace('ent')">
+      <span class="profile-card-icon">🌾</span>
+      <h2>Mon Espace</h2>
+      <p>Questionnaire de découverte, mes objectifs, mes actions, mes notes personnelles et mon avancement.</p>
+      <button class="profile-card-btn">Accéder →</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== APP COACH ===== -->
+<div class="app" id="app-coach">
+  <header class="header-coach">
+    <div class="header-left">
+      <div class="header-icon">🧭</div>
+      <div class="header-title">Espace Coach <span>Coaching Xewlu</span></div>
+    </div>
+    <nav>
+      <button class="nav-btn active-coach" onclick="showTab('coach','dashboard-coach')">Tableau de bord</button>
+      <button class="nav-btn" onclick="showTab('coach','audit')">Audit</button>
+      <button class="nav-btn" onclick="showTab('coach','roadmap')">Feuille de route</button>
+      <button class="nav-btn" onclick="showTab('coach','projets-coach')">Projets</button>
+      <button class="nav-btn" onclick="showTab('coach','notes-coach')">Notes</button>
+    </nav>
+    <button class="back-btn" onclick="goHome()">← Accueil</button>
+    <button class="back-btn" onclick="clearData()" style="margin-left:6px;border-color:rgba(192,57,43,0.4);color:rgba(192,57,43,0.7);">🗑 Effacer</button>
+  </header>
+
+  <!-- DASHBOARD COACH -->
+  <div class="section active" id="dashboard-coach">
+    <div class="welcome-band welcome-band-coach">
+      <h1>Bonjour, <em>Coach</em> 👋</h1>
+      <p>Voici votre espace de pilotage pour accompagner cette belle aventure entrepreneuriale autour du mil.</p>
+      <div class="progress-strip">
+        <div class="progress-chip">📍 Phase 1 : Diagnostic</div>
+        <div class="progress-chip">🎯 Objectif : Levée de fonds</div>
+        <div class="progress-chip">🗓️ Séance 1 à planifier</div>
+      </div>
+    </div>
+    <div class="grid-3" style="margin-bottom:24px;">
+      <div class="card" style="border-top:4px solid var(--coach-accent);">
+        <div style="font-size:32px; margin-bottom:8px;">🔍</div>
+        <h3>Audit</h3>
+        <p>5 dimensions à évaluer : business model, finances, équipe, marché, investisseurs.</p>
+        <button class="btn btn-outline-coach" onclick="showTab('coach','audit')" style="margin-top:14px;">Compléter →</button>
+      </div>
+      <div class="card" style="border-top:4px solid var(--gold);">
+        <div style="font-size:32px; margin-bottom:8px;">🗺️</div>
+        <h3>Feuille de route</h3>
+        <p>4 phases du diagnostic à la clôture de la levée de fonds.</p>
+        <button class="btn btn-outline-coach" onclick="showTab('coach','roadmap')" style="margin-top:14px;">Voir →</button>
+      </div>
+      <div class="card" style="border-top:4px solid var(--green);">
+        <div style="font-size:32px; margin-bottom:8px;">📝</div>
+        <h3>Notes de séances</h3>
+        <p>Vos observations, comptes-rendus et points de vigilance.</p>
+        <button class="btn btn-outline-coach" onclick="showTab('coach','notes-coach')" style="margin-top:14px;">Ouvrir →</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="tag tag-coach">Prochaines actions</div>
+      <h3 style="margin-bottom:16px;">À faire maintenant</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--cream);border-radius:10px;border:1px solid var(--border);">
+          <span style="font-size:20px;">📋</span>
+          <div><div style="font-size:14px;font-weight:500;">Planifier la séance d'exploration (2h)</div><div style="font-size:12px;color:var(--text-light);">Invitez-la à remplir son questionnaire en amont ou ensemble</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--cream);border-radius:10px;border:1px solid var(--border);">
+          <span style="font-size:20px;">📊</span>
+          <div><div style="font-size:14px;font-weight:500;">Demander les documents financiers</div><div style="font-size:12px;color:var(--text-light);">Bilans, chiffre d'affaires, structure des coûts</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--cream);border-radius:10px;border:1px solid var(--border);">
+          <span style="font-size:20px;">🤝</span>
+          <div><div style="font-size:14px;font-weight:500;">Définir le cadre du coaching</div><div style="font-size:12px;color:var(--text-light);">Fréquence, objectifs, confidentialité, engagements mutuels</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUDIT -->
+  <div class="section" id="audit">
+    <div class="section-header">
+      <div class="tag tag-coach">Outil coach — Confidentiel</div>
+      <h2>Audit & Diagnostic</h2>
+      <p>Évaluation sur 5 dimensions. À compléter après entretien et analyse des documents.</p>
+    </div>
+
+    <div class="audit-block open">
+      <div class="audit-block-header" onclick="toggleBlock(this)">
+        <span style="font-size:22px;">🏪</span>
+        <h3>1. Business Model & Positionnement</h3>
+        <span class="toggle">▼</span>
+      </div>
+      <div class="audit-block-body">
+        <div class="field-row">
+          <div class="field"><label>Nom de l'entreprise</label><input type="text" placeholder="ex. MilDakar SARL"></div>
+          <div class="field"><label>Année de création</label><input type="text" placeholder="ex. 2021"></div>
+        </div>
+        <div class="field"><label>Description de l'activité</label><textarea placeholder="Que fait-elle ? Quels produits ? À qui ?"></textarea></div>
+        <div class="field-row">
+          <div class="field"><label>Canaux de vente</label><textarea placeholder="Marché local, boutiques, livraison, online..."></textarea></div>
+          <div class="field"><label>Clientèle cible</label><textarea placeholder="Particuliers, restaurateurs, hôtels, export..."></textarea></div>
+        </div>
+        <div class="field"><label>Proposition de valeur différenciante</label><textarea placeholder="Pourquoi ses clients la choisissent-ils ?"></textarea></div>
+        <div class="field"><label>Force du business model (1 = fragile / 5 = solide)</label>
+          <div class="score-options"><button class="score-btn" onclick="selectScore(this,'coach')">1</button><button class="score-btn" onclick="selectScore(this,'coach')">2</button><button class="score-btn" onclick="selectScore(this,'coach')">3</button><button class="score-btn" onclick="selectScore(this,'coach')">4</button><button class="score-btn" onclick="selectScore(this,'coach')">5</button></div>
+        </div>
+        <div class="field"><label>Observations</label><textarea placeholder="Points solides, zones de risque, à approfondir..."></textarea></div>
+      </div>
+    </div>
+
+    <div class="audit-block">
+      <div class="audit-block-header" onclick="toggleBlock(this)">
+        <span style="font-size:22px;">💰</span>
+        <h3>2. Santé Financière</h3>
+        <span class="toggle">▼</span>
+      </div>
+      <div class="audit-block-body">
+        <div class="field-row">
+          <div class="field"><label>Chiffre d'affaires (dernier exercice)</label><input type="text" placeholder="En FCFA"></div>
+          <div class="field"><label>Croissance estimée</label><input type="text" placeholder="ex. +35%"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Résultat net</label><input type="text" placeholder="Bénéficiaire / Déficitaire"></div>
+          <div class="field"><label>Trésorerie</label><input type="text" placeholder="Confortable / Tendue / Critique"></div>
+        </div>
+        <div class="field"><label>Structure des coûts</label><textarea placeholder="Matières premières, main d'œuvre, loyer, transport..."></textarea></div>
+        <div class="field"><label>Sources de financement actuelles</label><textarea placeholder="Fonds propres, crédit, microfinance, subventions..."></textarea></div>
+        <div class="field"><label>Documents financiers disponibles</label>
+          <select><option>-- Sélectionner --</option><option>Bilan complet + compte de résultat</option><option>Comptabilité partielle / informelle</option><option>Aucun document formel</option></select>
+        </div>
+        <div class="field"><label>Santé financière (1-5)</label>
+          <div class="score-options"><button class="score-btn" onclick="selectScore(this,'coach')">1</button><button class="score-btn" onclick="selectScore(this,'coach')">2</button><button class="score-btn" onclick="selectScore(this,'coach')">3</button><button class="score-btn" onclick="selectScore(this,'coach')">4</button><button class="score-btn" onclick="selectScore(this,'coach')">5</button></div>
+        </div>
+        <div class="field"><label>Risques & recommandations</label><textarea placeholder="Dépendance client, saisonnalité, coûts mal maîtrisés..."></textarea></div>
+      </div>
+    </div>
+
+    <div class="audit-block">
+      <div class="audit-block-header" onclick="toggleBlock(this)">
+        <span style="font-size:22px;">👥</span>
+        <h3>3. Équipe & Organisation</h3>
+        <span class="toggle">▼</span>
+      </div>
+      <div class="audit-block-body">
+        <div class="field-row">
+          <div class="field"><label>Nombre d'employés</label><input type="text" placeholder="ex. 6 permanents + 3 saisonniers"></div>
+          <div class="field"><label>Statut juridique</label><input type="text" placeholder="SARL, SA, Entreprise individuelle..."></div>
+        </div>
+        <div class="field"><label>Compétences clés présentes</label><textarea placeholder="Production, gestion, commercial, logistique..."></textarea></div>
+        <div class="field"><label>Compétences manquantes (gaps)</label><textarea placeholder="Finance, marketing digital, management..."></textarea></div>
+        <div class="field"><label>Dépendance à la fondatrice</label><textarea placeholder="L'entreprise peut-elle fonctionner sans elle ?"></textarea></div>
+        <div class="field"><label>Maturité organisationnelle (1-5)</label>
+          <div class="score-options"><button class="score-btn" onclick="selectScore(this,'coach')">1</button><button class="score-btn" onclick="selectScore(this,'coach')">2</button><button class="score-btn" onclick="selectScore(this,'coach')">3</button><button class="score-btn" onclick="selectScore(this,'coach')">4</button><button class="score-btn" onclick="selectScore(this,'coach')">5</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="audit-block">
+      <div class="audit-block-header" onclick="toggleBlock(this)">
+        <span style="font-size:22px;">📈</span>
+        <h3>4. Marché & Croissance</h3>
+        <span class="toggle">▼</span>
+      </div>
+      <div class="audit-block-body">
+        <div class="field"><label>Marché adressable</label><textarea placeholder="Dakar ? Sénégal ? CEDEAO ? Export ?"></textarea></div>
+        <div class="field"><label>Concurrents directs</label><textarea placeholder="Qui fait quoi ? Quelle est sa position relative ?"></textarea></div>
+        <div class="field"><label>Tendances favorables</label><textarea placeholder="Intérêt pour les céréales locales, santé, souveraineté alimentaire..."></textarea></div>
+        <div class="field"><label>Barrières à la croissance</label><textarea placeholder="Approvisionnement, capacité de production, distribution..."></textarea></div>
+        <div class="field"><label>Potentiel de marché (1-5)</label>
+          <div class="score-options"><button class="score-btn" onclick="selectScore(this,'coach')">1</button><button class="score-btn" onclick="selectScore(this,'coach')">2</button><button class="score-btn" onclick="selectScore(this,'coach')">3</button><button class="score-btn" onclick="selectScore(this,'coach')">4</button><button class="score-btn" onclick="selectScore(this,'coach')">5</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="audit-block">
+      <div class="audit-block-header" onclick="toggleBlock(this)">
+        <span style="font-size:22px;">🤝</span>
+        <h3>5. Préparation à l'Investissement</h3>
+        <span class="toggle">▼</span>
+      </div>
+      <div class="audit-block-body">
+        <div class="field-row">
+          <div class="field"><label>Montant de levée visé</label><input type="text" placeholder="ex. 50M FCFA"></div>
+          <div class="field"><label>Utilisation des fonds</label><input type="text" placeholder="Équipement, stock, RH..."></div>
+        </div>
+        <div class="field"><label>Type d'investisseurs visés</label><textarea placeholder="Impact investing, fonds africains, business angels, FONSIS..."></textarea></div>
+        <div class="field"><label>Documents disponibles</label>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px;">
+            <label style="display:flex;align-items:center;gap:8px;font-weight:normal;color:var(--text);font-size:14px;"><input type="checkbox" style="width:auto;"> Business plan formalisé</label>
+            <label style="display:flex;align-items:center;gap:8px;font-weight:normal;color:var(--text);font-size:14px;"><input type="checkbox" style="width:auto;"> Pitch deck investisseurs</label>
+            <label style="display:flex;align-items:center;gap:8px;font-weight:normal;color:var(--text);font-size:14px;"><input type="checkbox" style="width:auto;"> Prévisionnel financier 3 ans</label>
+            <label style="display:flex;align-items:center;gap:8px;font-weight:normal;color:var(--text);font-size:14px;"><input type="checkbox" style="width:auto;"> Statuts juridiques à jour</label>
+            <label style="display:flex;align-items:center;gap:8px;font-weight:normal;color:var(--text);font-size:14px;"><input type="checkbox" style="width:auto;"> Rapport d'audit comptable</label>
+          </div>
+        </div>
+        <div class="field"><label>Niveau de préparation (1-5)</label>
+          <div class="score-options"><button class="score-btn" onclick="selectScore(this,'coach')">1</button><button class="score-btn" onclick="selectScore(this,'coach')">2</button><button class="score-btn" onclick="selectScore(this,'coach')">3</button><button class="score-btn" onclick="selectScore(this,'coach')">4</button><button class="score-btn" onclick="selectScore(this,'coach')">5</button></div>
+        </div>
+        <div class="field"><label>Chantiers prioritaires avant la levée</label><textarea placeholder="Ce qu'il faut absolument préparer avant de rencontrer des investisseurs..."></textarea></div>
+      </div>
+    </div>
+    <div class="save-bar"><button class="btn btn-coach" onclick="saveNotif()">💾 Sauvegarder l'audit</button></div>
+  </div>
+
+  <!-- FEUILLE DE ROUTE -->
+  <div class="section" id="roadmap">
+    <div class="section-header">
+      <div class="tag tag-coach">Parcours coaching</div>
+      <h2>Feuille de Route</h2>
+      <p>4 phases de l'audit à la clôture de la levée. Cochez au fil de l'avancement.</p>
+    </div>
+
+    <div class="roadmap-phase">
+      <div class="phase-header">
+        <div class="phase-num">1</div>
+        <div class="phase-info"><h3>Diagnostic & Fondations</h3><span>Séances 1–3 · 3-4 semaines</span></div>
+        <span class="phase-status status-progress">En cours</span>
+      </div>
+      <div class="phase-actions">
+        <div class="action-item"><div class="action-check done" onclick="toggleCheck(this)">✓</div><div class="action-text">Séance d'exploration : questionnaire valeurs & vision</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Audit complet de l'entreprise (5 dimensions)</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Collecte et analyse des documents financiers</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Analyse SWOT partagée avec l'entrepreneure</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Définir les objectifs SMART du coaching</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Rapport de diagnostic remis et commenté</div></div>
+      </div>
+    </div>
+
+    <div class="roadmap-phase">
+      <div class="phase-header">
+        <div class="phase-num">2</div>
+        <div class="phase-info"><h3>Structuration & Gouvernance</h3><span>Séances 4–7 · 6-8 semaines</span></div>
+        <span class="phase-status status-todo">À venir</span>
+      </div>
+      <div class="phase-actions">
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Formalisation du statut juridique adapté à l'investissement</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Mise en place d'une comptabilité normée et auditée</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Définition de la structure de gouvernance</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Travail sur la délégation (réduction dépendance fondatrice)</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Formalisation des processus clés</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Identification et recrutement des profils manquants</div></div>
+      </div>
+    </div>
+
+    <div class="roadmap-phase">
+      <div class="phase-header">
+        <div class="phase-num">3</div>
+        <div class="phase-info"><h3>Préparation de la Levée de Fonds</h3><span>Séances 8–12 · 8-10 semaines</span></div>
+        <span class="phase-status status-todo">À venir</span>
+      </div>
+      <div class="phase-actions">
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Business plan complet (marché, stratégie, finances)</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Prévisionnel financier 3-5 ans (2 scénarios)</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Valorisation de l'entreprise</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Pitch deck investisseurs (10-12 slides)</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Définition de l'offre : %, montant, droits</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Préparation à la due diligence (data room)</div></div>
+      </div>
+    </div>
+
+    <div class="roadmap-phase">
+      <div class="phase-header">
+        <div class="phase-num">4</div>
+        <div class="phase-info"><h3>Rencontre Investisseurs & Closing</h3><span>Séances 13–16 · 8-12 semaines</span></div>
+        <span class="phase-status status-todo">À venir</span>
+      </div>
+      <div class="phase-actions">
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Mapping des investisseurs potentiels</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Simulations de pitch & questions difficiles</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Premiers contacts et envoi du teaser</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Négociation des termes (term sheet)</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Accompagnement pendant la due diligence</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Closing : signature & plan post-levée</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJETS COACH -->
+  <div class="section" id="projets-coach">
+    <div class="section-header">
+      <div class="tag tag-coach">Analyse stratégique — Confidentiel</div>
+      <h2>Projets de l'entrepreneure</h2>
+      <p>Vue coach : analyse, scoring et annotations privées sur chaque projet déclaré.</p>
+    </div>
+
+    <div id="projets-coach-list">
+      <!-- Projet exemple -->
+      <div class="projet-coach-card" style="background:var(--warm-white);border:1px solid var(--border);border-radius:18px;margin-bottom:24px;overflow:hidden;">
+        <div style="background:var(--coach);padding:20px 26px;display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="background:rgba(255,255,255,0.15);width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;">🏭</div>
+            <div>
+              <div style="font-family:'Playfair Display',serif;color:white;font-size:18px;">Agrandissement de l'unité de production</div>
+              <div style="color:rgba(255,255,255,0.5);font-size:12px;margin-top:2px;">Déclaré par l'entrepreneure · À analyser</div>
+            </div>
+          </div>
+          <span style="background:rgba(232,185,74,0.2);color:var(--gold-light);border:1px solid rgba(232,185,74,0.3);padding:5px 14px;border-radius:16px;font-size:12px;font-weight:500;">Exemple</span>
+        </div>
+        <div style="padding:26px;">
+          <div class="grid-2" style="margin-bottom:20px;">
+            <div>
+              <div style="font-size:12px;color:var(--text-light);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">Description (elle)</div>
+              <div style="font-size:14px;color:var(--text);background:var(--cream);padding:12px;border-radius:10px;border:1px solid var(--border);min-height:60px;">Doubler la capacité de production pour répondre à la demande croissante des restaurateurs.</div>
+            </div>
+            <div>
+              <div style="font-size:12px;color:var(--text-light);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">Chiffrage estimé</div>
+              <div style="font-size:14px;color:var(--text);background:var(--cream);padding:12px;border-radius:10px;border:1px solid var(--border);">
+                <span style="font-family:'Playfair Display',serif;font-size:22px;color:var(--gold);">25M</span> <span style="color:var(--text-light);">FCFA</span><br>
+                <span style="font-size:12px;color:var(--text-light);">Délai : 8 mois · Démarrage : T3 2025</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Scoring coach -->
+          <div style="background:var(--coach-light);border-radius:12px;padding:18px;margin-bottom:18px;">
+            <div style="font-size:13px;font-weight:500;color:var(--coach);margin-bottom:14px;">🎯 Scoring coach (votre analyse)</div>
+            <div class="grid-3" style="gap:12px;">
+              <div>
+                <div style="font-size:12px;color:var(--text-light);margin-bottom:6px;">Priorité stratégique</div>
+                <div class="score-options"><button class="score-btn" onclick="selectScore(this,'coach')">1</button><button class="score-btn" onclick="selectScore(this,'coach')">2</button><button class="score-btn" onclick="selectScore(this,'coach')">3</button><button class="score-btn" onclick="selectScore(this,'coach')">4</button><button class="score-btn sel-coach" onclick="selectScore(this,'coach')">5</button></div>
+              </div>
+              <div>
+                <div style="font-size:12px;color:var(--text-light);margin-bottom:6px;">Faisabilité financière</div>
+                <div class="score-options"><button class="score-btn" onclick="selectScore(this,'coach')">1</button><button class="score-btn" onclick="selectScore(this,'coach')">2</button><button class="score-btn sel-coach" onclick="selectScore(this,'coach')">3</button><button class="score-btn" onclick="selectScore(this,'coach')">4</button><button class="score-btn" onclick="selectScore(this,'coach')">5</button></div>
+              </div>
+              <div>
+                <div style="font-size:12px;color:var(--text-light);margin-bottom:6px;">Attrait investisseur</div>
+                <div class="score-options"><button class="score-btn" onclick="selectScore(this,'coach')">1</button><button class="score-btn" onclick="selectScore(this,'coach')">2</button><button class="score-btn" onclick="selectScore(this,'coach')">3</button><button class="score-btn sel-coach" onclick="selectScore(this,'coach')">4</button><button class="score-btn" onclick="selectScore(this,'coach')">5</button></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field"><label>✏️ Analyse & recommandations coach (confidentiel)</label><textarea placeholder="Pertinence stratégique, risques, lien avec la levée de fonds, ce que vous allez travailler ensemble..."></textarea></div>
+          <div class="field-row">
+            <div class="field"><label>Inclus dans le business plan ?</label><select><option>-- Choisir --</option><option>Oui, projet phare</option><option>Oui, projet secondaire</option><option>Non, à discuter</option><option>Non, à écarter</option></select></div>
+            <div class="field"><label>Argument investisseur clé</label><input type="text" placeholder="ex. ROI estimé à 18 mois, réduction des coûts de 30%..."></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;padding:20px 0;">
+      <button class="btn btn-coach" onclick="addProjetCoach()">+ Ajouter un projet à analyser</button>
+    </div>
+  </div>
+
+  <!-- NOTES COACH -->
+  <div class="section" id="notes-coach">
+    <div class="section-header">
+      <div class="tag tag-coach">Confidentiel — Coach</div>
+      <h2>Notes & Séances</h2>
+      <p>Vos observations, insights et comptes-rendus de chaque séance.</p>
+    </div>
+    <div class="notes-area">
+      <div class="notes-sidebar coach-sidebar">
+        <h3>Mes notes</h3>
+        <div class="note-item active-note" onclick="selectNote(this,'Séance 1 — Exploration','Première séance de coaching.\n\nPoints abordés :\n- Présentation mutuelle\n- Cadre du coaching\n- Premières questions d\'audit\n\nÀ compléter...')">
+          <div class="note-item-title">Séance 1 — Exploration</div>
+          <div class="note-item-date">À venir</div>
+        </div>
+        <div class="note-item" onclick="selectNote(this,'Ressources & Contacts','Investisseurs & financeurs à contacter :\n\n• FONSIS – Fonds Souverain Sénégal\n• ADEPME – Agence PME Sénégal\n• Hub Africa – Réseau entrepreneurs\n• Teranga Capital – Impact investing\n• BOAD – Banque de développement\n• AfricInvest – Fonds panafricain\n\nLivres utiles :\n• Pitch Anything – Oren Klaff\n• Built to Sell – John Warrillow')">
+          <div class="note-item-title">Ressources & Contacts</div>
+          <div class="note-item-date">Références</div>
+        </div>
+        <button class="add-note-btn" onclick="addNote('coach')">+ Nouvelle note</button>
+      </div>
+      <div class="note-editor">
+        <input class="note-title-input" id="noteTitleCoach" value="Séance 1 — Exploration">
+        <textarea class="note-body-input" id="noteBodyCoach">Première séance de coaching.
+
+Points abordés :
+- Présentation mutuelle
+- Cadre du coaching
+- Premières questions d'audit
+
+À compléter...</textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== APP ENTREPRENEURE ===== -->
+<div class="app" id="app-ent">
+  <header class="header-entrepreneuse">
+    <div class="header-left">
+      <div class="header-icon">🌾</div>
+      <div class="header-title">Mon Espace <span>Coaching Xewlu</span></div>
+    </div>
+    <nav>
+      <button class="nav-btn active-ent" onclick="showTab('ent','dashboard-ent')">Accueil</button>
+      <button class="nav-btn" onclick="showTab('ent','questionnaire')">Mon questionnaire</button>
+      <button class="nav-btn" onclick="showTab('ent','mes-objectifs')">Mes objectifs</button>
+      <button class="nav-btn" onclick="showTab('ent','mes-projets')">Mes projets</button>
+      <button class="nav-btn" onclick="showTab('ent','notes-ent')">Mes notes</button>
+    </nav>
+    <button class="back-btn" onclick="goHome()">← Accueil</button>
+    <button class="back-btn" onclick="clearData()" style="margin-left:6px;border-color:rgba(192,57,43,0.4);color:rgba(192,57,43,0.7);">🗑 Effacer</button>
+  </header>
+
+  <!-- DASHBOARD ENTREPRENEUSE -->
+  <div class="section active" id="dashboard-ent">
+    <div class="welcome-band welcome-band-ent">
+      <h1>Bienvenue dans<br><em>votre espace</em> 🌾</h1>
+      <p>Un espace rien que pour vous — pour explorer qui vous êtes, clarifier votre vision et avancer vers vos ambitions.</p>
+      <div class="progress-strip">
+        <div class="progress-chip">✨ Questionnaire à compléter</div>
+        <div class="progress-chip">🎯 Objectif : Grandir & lever des fonds</div>
+      </div>
+    </div>
+    <div class="grid-2" style="margin-bottom:24px;">
+      <div class="card" style="border-left:4px solid var(--gold);">
+        <div style="font-size:36px; margin-bottom:10px;">💬</div>
+        <h3>Mon questionnaire</h3>
+        <p>Vos valeurs, votre histoire, vos rêves et vos ambitions. Un exercice puissant pour mieux vous connaître.</p>
+        <button class="btn btn-gold" onclick="showTab('ent','questionnaire')" style="margin-top:16px;">Commencer →</button>
+      </div>
+      <div class="card" style="border-left:4px solid var(--green);">
+        <div style="font-size:36px; margin-bottom:10px;">🎯</div>
+        <h3>Mes objectifs</h3>
+        <p>Les actions que vous vous êtes engagée à accomplir entre les séances.</p>
+        <button class="btn btn-gold" onclick="showTab('ent','mes-objectifs')" style="margin-top:16px;">Voir mes actions →</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="tag tag-ent">Pour bien démarrer</div>
+      <h3 style="margin-bottom:12px;">3 choses à faire avant la 1ère séance</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--cream);border-radius:10px;border:1px solid var(--border);">
+          <span style="font-size:22px;">1️⃣</span><div><div style="font-size:14px;font-weight:500;">Compléter le questionnaire</div><div style="font-size:12px;color:var(--text-light);">Prenez le temps d'y réfléchir, seul(e), au calme</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--cream);border-radius:10px;border:1px solid var(--border);">
+          <span style="font-size:22px;">2️⃣</span><div><div style="font-size:14px;font-weight:500;">Rassembler vos chiffres clés</div><div style="font-size:12px;color:var(--text-light);">CA, coûts, marge, nombre de clients — même approximatifs</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--cream);border-radius:10px;border:1px solid var(--border);">
+          <span style="font-size:22px;">3️⃣</span><div><div style="font-size:14px;font-weight:500;">Écrire votre "rêve fou"</div><div style="font-size:12px;color:var(--text-light);">En 5 lignes : ce que vous voulez vraiment accomplir avec cette entreprise</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUESTIONNAIRE -->
+  <div class="section" id="questionnaire">
+    <div class="section-header">
+      <div class="tag tag-ent">Séance 1</div>
+      <h2>Mon questionnaire de découverte</h2>
+      <p>Répondez librement, sans filtre. Il n'y a pas de bonne ou mauvaise réponse.</p>
+    </div>
+
+    <div style="margin-bottom:32px;">
+      <div class="bloc-title"><span class="bloc-letter">A</span>Mon histoire</div>
+      <div class="quest-block">
+        <div class="quest-number">1</div>
+        <h4>Racontez-moi l'histoire de votre entreprise.</h4>
+        <div class="hint">Comment est venue cette idée ? Qu'est-ce qui vous a poussée à choisir le mil ? Quel moment vous a décidée à vous lancer ?</div>
+        <textarea placeholder="Écrivez librement..."></textarea>
+      </div>
+      <div class="quest-block">
+        <div class="quest-number">2</div>
+        <h4>Quel rôle joue cette entreprise dans votre vie ?</h4>
+        <div class="hint">Est-ce une vocation, un projet économique, un héritage culturel, une fierté familiale ?</div>
+        <textarea placeholder="Écrivez librement..."></textarea>
+      </div>
+      <div class="quest-block">
+        <div class="quest-number">3</div>
+        <h4>Quelle est votre plus grande fierté depuis le lancement ?</h4>
+        <div class="hint">Pas forcément un chiffre — peut être une rencontre, un produit réussi, une reconnaissance...</div>
+        <textarea placeholder="Écrivez librement..."></textarea>
+      </div>
+    </div>
+
+    <div style="margin-bottom:32px;">
+      <div class="bloc-title"><span class="bloc-letter">B</span>Mes valeurs</div>
+      <div class="quest-block">
+        <div class="quest-number">4</div>
+        <h4>Quelles sont vos 3 valeurs non-négociables dans votre façon de faire du business ?</h4>
+        <div class="hint">Authenticité, qualité, ancrage local, impact social, famille, indépendance... Choisissez librement.</div>
+        <textarea placeholder="Valeur 1 :&#10;Valeur 2 :&#10;Valeur 3 :"></textarea>
+      </div>
+      <div class="quest-block">
+        <div class="quest-number">5</div>
+        <h4>Y a-t-il des choses que vous ne feriez jamais avec votre entreprise, même si c'était très rentable ?</h4>
+        <div class="hint">Vos lignes rouges.</div>
+        <textarea placeholder="Écrivez librement..."></textarea>
+      </div>
+      <div class="quest-block">
+        <div class="quest-number">6</div>
+        <h4>Quel impact souhaitez-vous avoir au-delà du profit ?</h4>
+        <div class="hint">Sur qui ? Sur quoi ? Emplois locaux, alimentation saine, valorisation du mil, femmes entrepreneures...</div>
+        <textarea placeholder="Écrivez librement..."></textarea>
+      </div>
+    </div>
+
+    <div style="margin-bottom:32px;">
+      <div class="bloc-title"><span class="bloc-letter">C</span>Ma vision & mes rêves</div>
+      <div class="quest-block">
+        <div class="quest-number">7</div>
+        <h4>Fermez les yeux. Votre entreprise dans 5 ans : que voyez-vous ?</h4>
+        <div class="hint">Combien d'employés ? Quels produits ? Dans quels pays ? Quel chiffre d'affaires ? Quelle est votre journée type ?</div>
+        <textarea placeholder="Décrivez cette image..."></textarea>
+      </div>
+      <div class="quest-block">
+        <div class="quest-number">8</div>
+        <h4>Si vous n'aviez aucune contrainte, qu'est-ce que vous feriez avec cette entreprise ?</h4>
+        <div class="hint">Laissez le rêve s'exprimer. Ne censurez rien.</div>
+        <textarea placeholder="Écrivez librement..."></textarea>
+      </div>
+      <div class="quest-block">
+        <div class="quest-number">9</div>
+        <h4>Que représente pour vous l'idée d'ouvrir votre capital à des investisseurs ?</h4>
+        <div class="hint">Opportunité, nécessité, crainte de perdre le contrôle, moyen d'accélérer ? Tout est valide.</div>
+        <textarea placeholder="Vos pensées honnêtes..."></textarea>
+      </div>
+    </div>
+
+    <div style="margin-bottom:32px;">
+      <div class="bloc-title"><span class="bloc-letter">D</span>Mes forces & mes freins</div>
+      <div class="quest-block">
+        <div class="quest-number">10</div>
+        <h4>Quels sont vos 3 talents ou forces qui font le succès de votre entreprise ?</h4>
+        <div class="hint">Pas de fausse modestie. Qu'est-ce que vous faites mieux que quiconque ?</div>
+        <textarea placeholder="Force 1 :&#10;Force 2 :&#10;Force 3 :"></textarea>
+      </div>
+      <div class="quest-block">
+        <div class="quest-number">11</div>
+        <h4>Qu'est-ce qui vous freine ou vous fait peur dans le développement de votre entreprise ?</h4>
+        <div class="hint">Échouer, perdre le contrôle, ne pas être légitime, ne pas trouver les bons partenaires...</div>
+        <textarea placeholder="Vos peurs honnêtes..."></textarea>
+      </div>
+      <div class="quest-block">
+        <div class="quest-number">12</div>
+        <h4>Sur une échelle de 1 à 10, à quel point vous sentez-vous prête pour la prochaine étape ?</h4>
+        <div class="hint">Qu'est-ce qui vous manque pour être à 10 ?</div>
+        <div class="scale-row">
+          <span class="scale-label">Pas prête</span>
+          <div id="scale-q12-ent" style="display:flex;gap:6px;">
+            <button class="scale-btn" onclick="selectScaleEnt(this,'scale-q12-ent')">1</button>
+            <button class="scale-btn" onclick="selectScaleEnt(this,'scale-q12-ent')">2</button>
+            <button class="scale-btn" onclick="selectScaleEnt(this,'scale-q12-ent')">3</button>
+            <button class="scale-btn" onclick="selectScaleEnt(this,'scale-q12-ent')">4</button>
+            <button class="scale-btn" onclick="selectScaleEnt(this,'scale-q12-ent')">5</button>
+            <button class="scale-btn" onclick="selectScaleEnt(this,'scale-q12-ent')">6</button>
+            <button class="scale-btn" onclick="selectScaleEnt(this,'scale-q12-ent')">7</button>
+            <button class="scale-btn" onclick="selectScaleEnt(this,'scale-q12-ent')">8</button>
+            <button class="scale-btn" onclick="selectScaleEnt(this,'scale-q12-ent')">9</button>
+            <button class="scale-btn" onclick="selectScaleEnt(this,'scale-q12-ent')">10</button>
+          </div>
+          <span class="scale-label">Totalement prête</span>
+        </div>
+        <div style="margin-top:12px;"><textarea placeholder="Ce qu'il me manque pour me sentir à 10..."></textarea></div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:32px;">
+      <div class="bloc-title"><span class="bloc-letter">E</span>Mes objectifs pour ce coaching</div>
+      <div class="quest-block">
+        <div class="quest-number">13</div>
+        <h4>À la fin de notre coaching, qu'est-ce qui doit avoir changé pour que vous considériez que c'était un succès ?</h4>
+        <div class="hint">Cherchez des indicateurs concrets : un investisseur trouvé, un document rédigé, une décision prise, un CA atteint...</div>
+        <textarea placeholder="Mon succès ressemblera à..."></textarea>
+      </div>
+      <div class="quest-block">
+        <div class="quest-number">14</div>
+        <h4>Quel est votre engagement sur ce parcours ?</h4>
+        <div class="hint">Temps disponible, ouverture au feedback, actions entre les séances. C'est un contrat moral avec vous-même.</div>
+        <textarea placeholder="Je m'engage à..."></textarea>
+      </div>
+    </div>
+    <div class="save-bar"><button class="btn btn-gold" onclick="saveNotif()">💾 Sauvegarder mes réponses</button></div>
+  </div>
+
+  <!-- MES OBJECTIFS -->
+  <div class="section" id="mes-objectifs">
+    <div class="section-header">
+      <div class="tag tag-ent">Entre les séances</div>
+      <h2>Mes objectifs & actions</h2>
+      <p>Les engagements pris lors de chaque séance. Cochez au fur et à mesure !</p>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <div class="tag tag-ent">Avant la 1ère séance</div>
+      <h3 style="margin-bottom:16px;">Mes premières actions</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Compléter le questionnaire de découverte en entier</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Rassembler mes chiffres clés (CA, coûts, marges)</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Écrire mon "rêve fou" en 5 lignes</div></div>
+        <div class="action-item"><div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">Lister mes 3 concurrents directs</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tag tag-ent">Mes actions personnalisées</div>
+      <h3 style="margin-bottom:16px;">Ajouter une action</h3>
+      <div class="field"><label>Nouvelle action à accomplir</label><input type="text" id="newActionInput" placeholder="ex. Préparer mes bilans des 2 dernières années..." onkeypress="if(event.key==='Enter')addAction()"></div>
+      <button class="btn btn-gold" onclick="addAction()">+ Ajouter</button>
+      <div id="custom-actions" style="margin-top:16px;display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+  </div>
+
+  <!-- MES PROJETS ENTREPRENEUSE -->
+  <div class="section" id="mes-projets">
+    <div class="section-header">
+      <div class="tag tag-ent">Mes ambitions</div>
+      <h2>Mes projets de développement</h2>
+      <p>Décrivez chaque projet que vous souhaitez lancer ou développer. Soyez aussi précise que possible.</p>
+    </div>
+
+    <div id="projets-ent-list"></div>
+
+    <div style="background:var(--warm-white);border:2px dashed var(--border);border-radius:18px;padding:32px;text-align:center;">
+      <div style="font-size:40px;margin-bottom:12px;">✨</div>
+      <div style="font-family:'Playfair Display',serif;font-size:20px;color:var(--earth-dark);margin-bottom:8px;">Quel est votre prochain grand projet ?</div>
+      <div style="color:var(--text-light);font-size:14px;margin-bottom:20px;">Nouvelle gamme, nouveau marché, équipement, partenariat, export...</div>
+      <button class="btn btn-gold" onclick="addProjetEnt()">+ Décrire un projet</button>
+    </div>
+  </div>
+
+  <!-- NOTES ENTREPRENEUSE -->
+  <div class="section" id="notes-ent">
+    <div class="section-header">
+      <div class="tag tag-ent">Mon espace privé</div>
+      <h2>Mes notes personnelles</h2>
+      <p>Vos réflexions, idées, questions et prises de conscience. Cet espace est le vôtre.</p>
+    </div>
+    <div class="notes-area">
+      <div class="notes-sidebar">
+        <h3>Mes notes</h3>
+        <div class="note-item active-note" onclick="selectNoteEnt(this,'Mes premières réflexions','Avant même la 1ère séance, voici ce que je ressens...\n\nCe qui m\'enthousiasme :\n\nCe qui m\'inquiète :\n\nCe que je veux absolument garder en tête :')">
+          <div class="note-item-title">Mes premières réflexions</div>
+          <div class="note-item-date">Avant la séance 1</div>
+        </div>
+        <div class="note-item" onclick="selectNoteEnt(this,'Mon rêve fou','Dans 5 ans, je veux...\n\n')">
+          <div class="note-item-title">Mon rêve fou</div>
+          <div class="note-item-date">Ma vision</div>
+        </div>
+        <button class="add-note-btn" onclick="addNoteEnt()">+ Nouvelle note</button>
+      </div>
+      <div class="note-editor">
+        <input class="note-title-input" id="noteTitleEnt" value="Mes premières réflexions">
+        <textarea class="note-body-input" id="noteBodyEnt">Avant même la 1ère séance, voici ce que je ressens...
+
+Ce qui m'enthousiasme :
+
+Ce qui m'inquiète :
+
+Ce que je veux absolument garder en tête :</textarea>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let currentSpace = null;
+
+function enterSpace(space) {
+  document.getElementById('accueil').style.display = 'none';
+  document.getElementById('app-coach').classList.remove('visible');
+  document.getElementById('app-ent').classList.remove('visible');
+  currentSpace = space;
+  document.getElementById('app-' + space).classList.add('visible');
+}
+
+function goHome() {
+  document.getElementById('accueil').style.display = 'flex';
+  document.getElementById('app-coach').classList.remove('visible');
+  document.getElementById('app-ent').classList.remove('visible');
+}
+
+function showTab(space, id) {
+  const app = document.getElementById('app-' + space);
+  app.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const btns = app.querySelectorAll('.nav-btn');
+  btns.forEach(b => b.classList.remove('active-coach', 'active-ent'));
+  const cls = space === 'coach' ? 'active-coach' : 'active-ent';
+  const tabMap = {
+    'dashboard-coach': 0, 'audit': 1, 'roadmap': 2, 'projets-coach': 3, 'notes-coach': 4,
+    'dashboard-ent': 0, 'questionnaire': 1, 'mes-objectifs': 2, 'mes-projets': 3, 'notes-ent': 4
+  };
+  if (tabMap[id] !== undefined) btns[tabMap[id]].classList.add(cls);
+}
+
+function toggleBlock(header) { header.parentElement.classList.toggle('open'); }
+
+function selectScore(btn, type) {
+  const g = btn.parentElement;
+  g.querySelectorAll('.score-btn').forEach(b => { b.classList.remove('sel-coach','sel-ent'); });
+  btn.classList.add('sel-' + type);
+}
+
+function selectScaleEnt(btn, gid) {
+  document.getElementById(gid).querySelectorAll('.scale-btn').forEach(b => b.classList.remove('sel-ent'));
+  btn.classList.add('sel-ent');
+}
+
+function toggleCheck(el) {
+  el.classList.toggle('done');
+  el.textContent = el.classList.contains('done') ? '✓' : '';
+}
+
+function selectNote(item, title, body) {
+  document.querySelectorAll('#app-coach .note-item').forEach(n => n.classList.remove('active-note'));
+  item.classList.add('active-note');
+  document.getElementById('noteTitleCoach').value = title;
+  document.getElementById('noteBodyCoach').value = body;
+}
+
+function selectNoteEnt(item, title, body) {
+  document.querySelectorAll('#app-ent .note-item').forEach(n => n.classList.remove('active-note'));
+  item.classList.add('active-note');
+  document.getElementById('noteTitleEnt').value = title;
+  document.getElementById('noteBodyEnt').value = body;
+}
+
+let noteCountCoach = 2;
+function addNote() {
+  noteCountCoach++;
+  const sidebar = document.querySelector('#app-coach .notes-sidebar');
+  const btn = sidebar.querySelector('.add-note-btn');
+  const item = document.createElement('div');
+  item.className = 'note-item';
+  const today = new Date().toLocaleDateString('fr-FR', {day:'numeric',month:'long',year:'numeric'});
+  item.innerHTML = `<div class="note-item-title">Note ${noteCountCoach}</div><div class="note-item-date">${today}</div>`;
+  item.onclick = function() { selectNote(this, `Note ${noteCountCoach}`, ''); };
+  sidebar.insertBefore(item, btn);
+  item.click();
+}
+
+let noteCountEnt = 2;
+function addNoteEnt() {
+  noteCountEnt++;
+  const sidebar = document.querySelector('#app-ent .notes-sidebar');
+  const btn = sidebar.querySelector('.add-note-btn');
+  const item = document.createElement('div');
+  item.className = 'note-item';
+  const today = new Date().toLocaleDateString('fr-FR', {day:'numeric',month:'long',year:'numeric'});
+  item.innerHTML = `<div class="note-item-title">Ma note ${noteCountEnt}</div><div class="note-item-date">${today}</div>`;
+  item.onclick = function() { selectNoteEnt(this, `Ma note ${noteCountEnt}`, ''); };
+  sidebar.insertBefore(item, btn);
+  item.click();
+}
+
+function addAction() {
+  const input = document.getElementById('newActionInput');
+  const text = input.value.trim();
+  if (!text) return;
+  const container = document.getElementById('custom-actions');
+  const div = document.createElement('div');
+  div.className = 'action-item';
+  div.innerHTML = `<div class="action-check" onclick="toggleCheck(this)"></div><div class="action-text">${text}</div>`;
+  container.appendChild(div);
+  input.value = '';
+}
+
+// ===== PROJETS ENTREPRENEUSE =====
+let projetEntCount = 0;
+const icones = ['🌾','🏭','📦','🚚','🌍','💡','🤝','📱','🏪','🌿'];
+
+function addProjetEnt() {
+  projetEntCount++;
+  const id = 'projet-ent-' + projetEntCount;
+  const icone = icones[(projetEntCount - 1) % icones.length];
+  const div = document.createElement('div');
+  div.id = id;
+  div.style.cssText = 'background:var(--warm-white);border:1px solid var(--border);border-radius:18px;margin-bottom:24px;overflow:hidden;';
+  div.innerHTML = `
+    <div style="background:var(--earth-dark);padding:18px 24px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="background:rgba(200,146,42,0.2);width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;">${icone}</div>
+        <div style="font-family:'Playfair Display',serif;color:white;font-size:17px;">Projet ${projetEntCount}</div>
+      </div>
+      <button onclick="this.closest('[id^=projet-ent]').remove()" style="background:rgba(255,255,255,0.1);border:none;color:rgba(255,255,255,0.5);cursor:pointer;border-radius:8px;padding:4px 10px;font-size:12px;">Supprimer</button>
+    </div>
+    <div style="padding:24px;">
+      <div class="field"><label>Nom du projet</label><input type="text" placeholder="ex. Nouvelle gamme de farine de mil bio"></div>
+      <div class="field"><label>Description</label><textarea placeholder="Qu'est-ce que ce projet ? Pourquoi voulez-vous le lancer ? Quel problème résout-il ?"></textarea></div>
+      <div class="field-row">
+        <div class="field"><label>Objectif principal</label><input type="text" placeholder="ex. Augmenter le CA de 40%, conquérir les hôtels..."></div>
+        <div class="field"><label>Statut actuel</label>
+          <select><option>-- Choisir --</option><option>💡 Idée à explorer</option><option>📋 En cours de planification</option><option>🚀 En cours de réalisation</option><option>✅ Finalisé</option></select>
+        </div>
+      </div>
+      <div style="background:var(--gold-pale);border-radius:12px;padding:18px;margin-bottom:16px;">
+        <div style="font-size:13px;font-weight:500;color:var(--earth);margin-bottom:14px;">💰 Budget & Planning</div>
+        <div class="field-row">
+          <div class="field"><label>Coût estimé total</label><input type="text" placeholder="ex. 15 000 000 FCFA"></div>
+          <div class="field"><label>Source de financement envisagée</label><input type="text" placeholder="ex. Fonds propres + levée de fonds"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Date de démarrage souhaitée</label><input type="text" placeholder="ex. Janvier 2026"></div>
+          <div class="field"><label>Délai de réalisation estimé</label><input type="text" placeholder="ex. 6 mois"></div>
+        </div>
+      </div>
+      <div style="background:var(--green-light);border-radius:12px;padding:18px;margin-bottom:16px;">
+        <div style="font-size:13px;font-weight:500;color:var(--green);margin-bottom:14px;">📈 Impact attendu</div>
+        <div class="field-row">
+          <div class="field"><label>Impact sur le chiffre d'affaires</label><input type="text" placeholder="ex. +30% de CA en année 1"></div>
+          <div class="field"><label>Emplois créés</label><input type="text" placeholder="ex. 3 nouveaux postes"></div>
+        </div>
+        <div class="field"><label>Autres bénéfices attendus</label><textarea style="min-height:60px;" placeholder="Visibilité, nouveaux marchés, compétitivité, impact social..."></textarea></div>
+      </div>
+      <div class="field"><label>Principales étapes / jalons</label><textarea style="min-height:70px;" placeholder="Étape 1 : ...&#10;Étape 2 : ...&#10;Étape 3 : ..."></textarea></div>
+      <div class="field"><label>Risques ou obstacles anticipés</label><textarea style="min-height:60px;" placeholder="Ce qui pourrait bloquer ou retarder ce projet..."></textarea></div>
+      <div class="field"><label>Niveau de priorité pour vous</label>
+        <div style="display:flex;gap:10px;margin-top:6px;">
+          <button onclick="setPriorite(this,'🔴 Priorité absolue')" style="padding:8px 16px;border-radius:20px;border:1.5px solid var(--border);background:var(--cream);cursor:pointer;font-size:13px;font-family:'DM Sans',sans-serif;transition:all 0.15s;">🔴 Absolue</button>
+          <button onclick="setPriorite(this,'🟠 Importante')" style="padding:8px 16px;border-radius:20px;border:1.5px solid var(--border);background:var(--cream);cursor:pointer;font-size:13px;font-family:'DM Sans',sans-serif;transition:all 0.15s;">🟠 Importante</button>
+          <button onclick="setPriorite(this,'🟡 Secondaire')" style="padding:8px 16px;border-radius:20px;border:1.5px solid var(--border);background:var(--cream);cursor:pointer;font-size:13px;font-family:'DM Sans',sans-serif;transition:all 0.15s;">🟡 Secondaire</button>
+          <button onclick="setPriorite(this,'🔵 À long terme')" style="padding:8px 16px;border-radius:20px;border:1.5px solid var(--border);background:var(--cream);cursor:pointer;font-size:13px;font-family:'DM Sans',sans-serif;transition:all 0.15s;">🔵 Long terme</button>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('projets-ent-list').appendChild(div);
+  div.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function setPriorite(btn, label) {
+  const group = btn.parentElement;
+  group.querySelectorAll('button').forEach(b => { b.style.background = 'var(--cream)'; b.style.borderColor = 'var(--border)'; b.style.color = 'var(--text)'; });
+  btn.style.background = 'var(--gold)'; btn.style.borderColor = 'var(--gold)'; btn.style.color = 'var(--earth-dark)';
+}
+
+// ===== PROJETS COACH =====
+let projetCoachCount = 1;
+
+function addProjetCoach() {
+  projetCoachCount++;
+  const div = document.createElement('div');
+  div.className = 'projet-coach-card';
+  div.style.cssText = 'background:var(--warm-white);border:1px solid var(--border);border-radius:18px;margin-bottom:24px;overflow:hidden;';
+  div.innerHTML = `
+    <div style="background:var(--coach);padding:18px 24px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="background:rgba(255,255,255,0.1);width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;">📋</div>
+        <div>
+          <input type="text" placeholder="Nom du projet" style="background:none;border:none;color:white;font-family:'Playfair Display',serif;font-size:17px;outline:none;width:300px;" />
+          <div style="color:rgba(255,255,255,0.4);font-size:12px;margin-top:2px;">Nouveau projet · À analyser</div>
+        </div>
+      </div>
+      <button onclick="this.closest('.projet-coach-card').remove()" style="background:rgba(255,255,255,0.1);border:none;color:rgba(255,255,255,0.5);cursor:pointer;border-radius:8px;padding:4px 10px;font-size:12px;">Supprimer</button>
+    </div>
+    <div style="padding:24px;">
+      <div class="grid-2" style="margin-bottom:18px;">
+        <div>
+          <div style="font-size:12px;color:var(--text-light);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">Description (elle)</div>
+          <textarea style="width:100%;padding:12px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;background:var(--cream);min-height:80px;resize:vertical;" placeholder="Résumé de ce qu'elle a décrit..."></textarea>
+        </div>
+        <div>
+          <div style="font-size:12px;color:var(--text-light);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">Chiffrage & Planning (elle)</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <input type="text" placeholder="Coût estimé (FCFA)" style="padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;background:var(--cream);">
+            <input type="text" placeholder="Délai estimé" style="padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;background:var(--cream);">
+            <input type="text" placeholder="Démarrage souhaité" style="padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;background:var(--cream);">
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--coach-light);border-radius:12px;padding:18px;margin-bottom:16px;">
+        <div style="font-size:13px;font-weight:500;color:var(--coach);margin-bottom:14px;">🎯 Scoring coach</div>
+        <div class="grid-3" style="gap:12px;">
+          <div><div style="font-size:12px;color:var(--text-light);margin-bottom:6px;">Priorité stratégique</div>
+            <div class="score-options"><button class="score-btn" onclick="selectScore(this,'coach')">1</button><button class="score-btn" onclick="selectScore(this,'coach')">2</button><button class="score-btn" onclick="selectScore(this,'coach')">3</button><button class="score-btn" onclick="selectScore(this,'coach')">4</button><button class="score-btn" onclick="selectScore(this,'coach')">5</button></div></div>
+          <div><div style="font-size:12px;color:var(--text-light);margin-bottom:6px;">Faisabilité financière</div>
+            <div class="score-options"><button class="score-btn" onclick="selectScore(this,'coach')">1</button><button class="score-btn" onclick="selectScore(this,'coach')">2</button><button class="score-btn" onclick="selectScore(this,'coach')">3</button><button class="score-btn" onclick="selectScore(this,'coach')">4</button><button class="score-btn" onclick="selectScore(this,'coach')">5</button></div></div>
+          <div><div style="font-size:12px;color:var(--text-light);margin-bottom:6px;">Attrait investisseur</div>
+            <div class="score-options"><button class="score-btn" onclick="selectScore(this,'coach')">1</button><button class="score-btn" onclick="selectScore(this,'coach')">2</button><button class="score-btn" onclick="selectScore(this,'coach')">3</button><button class="score-btn" onclick="selectScore(this,'coach')">4</button><button class="score-btn" onclick="selectScore(this,'coach')">5</button></div></div>
+        </div>
+      </div>
+      <div class="field"><label>✏️ Analyse & recommandations (confidentiel)</label><textarea placeholder="Pertinence, risques, lien levée de fonds, points à travailler ensemble..."></textarea></div>
+      <div class="field-row">
+        <div class="field"><label>Inclus dans le business plan ?</label><select><option>-- Choisir --</option><option>Oui, projet phare</option><option>Oui, projet secondaire</option><option>Non, à discuter</option><option>Non, à écarter</option></select></div>
+        <div class="field"><label>Argument investisseur clé</label><input type="text" placeholder="ex. ROI estimé à 18 mois..."></div>
+      </div>
+    </div>`;
+  document.getElementById('projets-coach-list').appendChild(div);
+  div.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ===== SAUVEGARDE AUTOMATIQUE (localStorage) =====
+
+function autoSave() {
+  const data = {};
+  // Tous les inputs, textareas, selects
+  document.querySelectorAll('input[type=text], input[type=checkbox], textarea, select').forEach((el, i) => {
+    const key = el.dataset.saveKey || (el.dataset.saveKey = 'field_' + i);
+    if (el.type === 'checkbox') data[key] = el.checked;
+    else data[key] = el.value;
+  });
+  // Score buttons
+  document.querySelectorAll('.score-btn.sel-coach, .score-btn.sel-ent').forEach((el, i) => {
+    const key = 'score_' + el.parentElement.dataset.saveKey || ('score_grp_' + i);
+    el.parentElement.dataset.saveKey = el.parentElement.dataset.saveKey || ('grp_' + i);
+    data['score_' + el.parentElement.dataset.saveKey] = el.textContent;
+  });
+  // Scale buttons
+  document.querySelectorAll('.scale-btn.sel-ent').forEach(el => {
+    data['scale_' + el.parentElement.id] = el.textContent;
+  });
+  // Action checks
+  document.querySelectorAll('.action-check').forEach((el, i) => {
+    data['check_' + i] = el.classList.contains('done');
+  });
+  // Priorité buttons
+  document.querySelectorAll('[onclick^="setPriorite"]').forEach((el, i) => {
+    data['prio_' + i] = el.style.background === 'var(--gold)';
+  });
+  localStorage.setItem('xewlu_coaching_data', JSON.stringify(data));
+  localStorage.setItem('xewlu_save_time', new Date().toLocaleString('fr-FR'));
+}
+
+function autoRestore() {
+  const raw = localStorage.getItem('xewlu_coaching_data');
+  if (!raw) return;
+  const data = JSON.parse(raw);
+  document.querySelectorAll('input[type=text], input[type=checkbox], textarea, select').forEach((el, i) => {
+    const key = 'field_' + i;
+    if (data[key] !== undefined) {
+      if (el.type === 'checkbox') el.checked = data[key];
+      else el.value = data[key];
+    }
+  });
+  document.querySelectorAll('.score-options').forEach((grp, i) => {
+    grp.dataset.saveKey = grp.dataset.saveKey || ('grp_' + i);
+    const saved = data['score_' + grp.dataset.saveKey];
+    if (saved) grp.querySelectorAll('.score-btn').forEach(b => {
+      if (b.textContent === saved) { b.classList.add(b.closest('#app-coach') ? 'sel-coach' : 'sel-ent'); }
+    });
+  });
+  document.querySelectorAll('.action-check').forEach((el, i) => {
+    if (data['check_' + i]) { el.classList.add('done'); el.textContent = '✓'; }
+  });
+  showSaveTime();
+}
+
+function showSaveTime() {
+  const t = localStorage.getItem('xewlu_save_time');
+  if (!t) return;
+  let badge = document.getElementById('save-badge');
+  if (!badge) {
+    badge = document.createElement('div');
+    badge.id = 'save-badge';
+    badge.style.cssText = 'position:fixed;bottom:20px;left:20px;background:rgba(74,124,89,0.9);color:white;padding:8px 16px;border-radius:20px;font-size:12px;z-index:300;backdrop-filter:blur(4px);';
+    document.body.appendChild(badge);
+  }
+  badge.textContent = '💾 Dernière sauvegarde : ' + t;
+}
+
+function clearData() {
+  if (confirm('Effacer toutes les données sauvegardées ? Cette action est irréversible.')) {
+    localStorage.removeItem('xewlu_coaching_data');
+    localStorage.removeItem('xewlu_save_time');
+    location.reload();
+  }
+}
+
+// Sauvegarde automatique toutes les 30 secondes + à chaque modification
+document.addEventListener('DOMContentLoaded', () => {
+  autoRestore();
+  document.body.addEventListener('input', () => { autoSave(); showSaveTime(); });
+  document.body.addEventListener('change', () => { autoSave(); showSaveTime(); });
+  document.body.addEventListener('click', (e) => {
+    if (e.target.classList.contains('score-btn') || e.target.classList.contains('scale-btn') ||
+        e.target.classList.contains('action-check') || e.target.closest('[onclick^="setPriorite"]')) {
+      setTimeout(() => { autoSave(); showSaveTime(); }, 100);
+    }
+  });
+  setInterval(() => { autoSave(); showSaveTime(); }, 30000);
+});
+
+function saveNotif() {
+  const bar = document.createElement('div');
+  bar.style.cssText = 'position:fixed;bottom:32px;right:36px;background:#4A7C59;color:white;padding:12px 24px;border-radius:12px;font-size:14px;z-index:200;box-shadow:0 4px 20px rgba(0,0,0,0.2);animation:fadeUp 0.3s ease;';
+  bar.textContent = '✓ Sauvegardé';
+  document.body.appendChild(bar);
+  setTimeout(() => bar.remove(), 2500);
+}
+</script>
+</body>
+</html>
